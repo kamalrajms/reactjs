@@ -1,0 +1,5 @@
+##react styleing methods
+    inline css
+    app.css,index.css is globaly assigned
+    css module.css
+    
