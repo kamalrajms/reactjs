@@ -2,4 +2,19 @@
     inline css
     app.css,index.css is globaly assigned
     css module.css
-    
+
+##props
+    props.varialbeName   fun (props)
+    Destructureing props  fun({var})
+
+##hooks
+
+    usestate
+    useEffect
+    useContext
+    UseReducer
+    useCallBack
+    useRef
+    useNavigate
+    useParams
+
