@@ -1,18 +1,47 @@
-import React from "react";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Body from "./components/Body";
+import React, { useState } from "react";
 
 export default function App() {
-  const name = "Chandru";
-  const age = 23;
-  const course = "B.E";
+  const [user, setuser] = useState(false);
+  const fruits = [];
+  const users = [
+    { id: 1, name: "SK" },
+    { id: 2, name: "AK" },
+    { id: 3, name: "Vijay" },
+  ];
   return (
-    <>
-      {/* <h1 className="">Hello world</h1> */}
-      <Header />
-      <Body first={name} age={age} course={course} />
-      <Footer />
-    </>
+    <div>
+      {/* //conditional rendering */}
+      <nav>
+        {user ? <p>Welcome back</p> : <p>Please log in</p>}
+        <button onClick={() => setuser(!user)}>login</button>
+
+        <button onClick={() => setuser(!user)}>
+          {user ? "hide" : "show"}text
+        </button>
+        {user && <p>this is toggled text</p>}
+      </nav>
+      {/* list rendering */}
+      <nav>
+        {fruits.map((ele, ind) => (
+          <h3 key={ind}>{ele}</h3>
+        ))}
+      </nav>
+      {/* <ul>
+        {users.find((user) => (
+          <li key={user.id}>{user.id === 2 ? user.name : " "}</li>
+        ))}
+      </ul> */}
+      <nav>
+        {fruits.length > 0 ? (
+          <ul>
+            {fruits.map((e, ind) => (
+              <li key={ind}>{e}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>no fruits found</p>
+        )}
+      </nav>
+    </div>
   );
 }
