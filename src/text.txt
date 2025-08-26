@@ -24,3 +24,6 @@
 
 ## conditional rendering
 ## list rendering in react
+
+## forms & controlled components
+    handling inputs
