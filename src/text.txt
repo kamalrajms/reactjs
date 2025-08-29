@@ -18,12 +18,52 @@
     useNavigate
     useParams
 
+##types of states
+
+    local state =usestate,UseReducer =inside one components
+    
+    global state=useContext,redux  --across components
+
+    server state = useEffect    --Remote data, api
+
+    url state  -- useSearchparams,useParams  --routing info
+
+    form state -- usestate   --user inputs
+
+
+
 ##usestate
 
     const[startingVariable,SETStatingVariaable]=usestate(initialvalue)
+
+    useState is a React Hook that allows you to add state (data that can change over time) to a functional component.
+    Normally, in JavaScript functions, variables disappear after the function runs. But with useState, React remembers values between re-renders.
 
 ## conditional rendering
 ## list rendering in react
 
 ## forms & controlled components
     handling inputs
+
+## useEffect
+    
+    useEffect is a Hook that let you perform side 
+    effect in functionol components.
+    
+    like 
+        fetching datas from api
+        updating the browser browser
+        starting /stoping timers
+
+    useEffect(()=>{
+        //code
+    },[dependencies1,dependencies2....]) 
+
+## Routing DOM
+
+    routing DOM means navigating b/w different pages in a web application
+    In traditional web sites ,clicking a link reloads the while pages. 
+    in react (SAP) ,routing lets us changes the view without reloding  
+
+    npm install react-router-DOM
+    
