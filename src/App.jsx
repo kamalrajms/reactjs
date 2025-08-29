@@ -1,28 +1,25 @@
 import React, { useState } from "react";
-import Body from "./components/Body";
-import Footer from "./components/Footer";
+import { BrowserRouter, Route, Routes, Link } from "react-router-dom";
+import Home from "./components/Home";
+import About from "./components/About";
+import Contact from "./components/Contact";
 import Header from "./components/Header";
-import FormsControlled from "./components/FormsControlled";
-import MultiInputForm from "./components/MultiInputForm";
-import FetchingData from "./components/FetchingData";
-import UseEffect from "./components/UseEffect";
-import Timer from "./components/Timer";
+import Footer from "./components/Footer";
 
 export default function App() {
-  const [user, setuser] = useState(false);
   return (
     <div>
-      {user ? (
-        <Footer user={user} setuser={setuser} />
-      ) : (
-        <Body user={user} setuser={setuser} />
-      )}
-      <Header />
-      <FormsControlled />
-      <MultiInputForm />
-      <UseEffect />
-      <FetchingData />
-      <Timer />
+      <BrowserRouter>
+        <Header />
+        <nav className="body">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/aBout" element={<About />} />
+            <Route path="/contacT" element={<Contact />} />
+          </Routes>
+        </nav>
+        <Footer />
+      </BrowserRouter>
     </div>
   );
 }
