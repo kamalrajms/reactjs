@@ -42,6 +42,8 @@
 ## conditional rendering
 ## list rendering in react
 
+## trenary opreator || logical operator
+
 ## forms & controlled components
     handling inputs
 
@@ -72,3 +74,20 @@
      num,str,obj,function,dom elemments
 
      updating it does not causes your component re-rendering
+
+## useContext
+
+   1) passing data from a parent component down to deeply nested child component is annoying.
+    
+    2) Normally,you have to pass props manually through each level called props drilling
+
+    3) useContext lets you skip all the middle components and share data directly
+
+## useReducer()
+
+    const[state,dispatch]=useReducer(reducerFunction,initialvalue)
+
+    state-- current state (like usestate)
+    dispatch-- a function to tell the reducer what to does
+    reducerFunction(state,action) -- the logical that return a new state
+    initialvalue--starting value
