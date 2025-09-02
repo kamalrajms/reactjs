@@ -1,38 +1,27 @@
-import React, { useState, createContext, useContext, useReducer } from "react";
+import React, { useState, useCallback } from "react";
+import List from "./components/List";
 
 export default function App() {
-  // const [count, setcount] = useState(0);
+  const [number, setNumber] = useState(1);
+  const [dark, setDark] = useState(false);
 
-  const initialState = { count: 0 };
-
-  function reducer(state, action) {
-    switch (action.type) {
-      case "inc":
-        return { count: state.count + 1 };
-      case "dec":
-        return { count: state.count - 1 };
-      case "reset":
-        return { count: 0 };
-      default:
-        return { count: 0 };
-    }
-  }
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const getItem = useCallback(() => {
+    return [number, number + 1, number + 2];
+  }, [number]);
   return (
-    <div>
-      {/* {count}
-      <button onClick={() => setcount(count + 1)}>inc</button>
-      <br />
-      <button onClick={() => setcount(count - 1)}>dec</button>
-      <br />
-      <button onClick={() => setcount(0)}>reset</button> */}
-
-      <h1>count :{state.count}</h1>
-      <button onClick={() => dispatch({ type: "inc" })}>+</button>
-      <br />
-      <button onClick={() => dispatch({ type: "dec" })}>-</button>
-      <br />
-      <button onClick={() => dispatch({ type: "reset" })}>reset</button>
+    <div
+      style={{
+        backgroundColor: dark ? "#333" : "#fff",
+        color: dark ? "#fff" : "#333",
+      }}
+    >
+      <input
+        type="number"
+        value={number}
+        onChange={(e) => setNumber(parseInt(e.target.value))}
+      />
+      <button onClick={() => setDark((prev) => !prev)}>toggle theme</button>
+      <List getItem={getItem} />
     </div>
   );
 }
