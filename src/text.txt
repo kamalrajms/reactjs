@@ -103,3 +103,8 @@
     const variables= useCallBack(()=>{
 
     },[dependencies])
+
+## useParams
+
+    useParams is a React Router hook that lets you access dynamic parameters from the URL.
+    It’s commonly used when you have routes with dynamic segments like /users/:id or /products/:productId.

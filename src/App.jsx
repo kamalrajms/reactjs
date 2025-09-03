@@ -1,27 +1,31 @@
-import React, { useState, useCallback } from "react";
-import List from "./components/List";
+import React from "react";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import Home from "./components/Home";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import Appdevelopment from "./services/Appdevelopment";
+import Web from "./services/Web";
+import File from "./components/File";
 
 export default function App() {
-  const [number, setNumber] = useState(1);
-  const [dark, setDark] = useState(false);
-
-  const getItem = useCallback(() => {
-    return [number, number + 1, number + 2];
-  }, [number]);
   return (
-    <div
-      style={{
-        backgroundColor: dark ? "#333" : "#fff",
-        color: dark ? "#fff" : "#333",
-      }}
-    >
-      <input
-        type="number"
-        value={number}
-        onChange={(e) => setNumber(parseInt(e.target.value))}
-      />
-      <button onClick={() => setDark((prev) => !prev)}>toggle theme</button>
-      <List getItem={getItem} />
+    <div>
+      <BrowserRouter>
+        <nav>
+          <Link to={"/"}>Home</Link>
+          <Link to={"/about"}>about</Link>
+          <Link to={"/contact"}>contact</Link>
+        </nav>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />}>
+            <Route path="Appdev" element={<Appdevelopment />} />
+            <Route path="webdev" element={<Web />} />
+          </Route>
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/File/:id" element={<File />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
