@@ -1,40 +1,69 @@
 import React, { useState } from "react";
-import Square from "./component/Square";
-export default function App() {
-  const [xIsNext, setXIsNext] = useState(true);
-  const [squares, setSquares] = useState(Array(9).fill(null));
 
-  function handleClick(i) {
-    if (squares[i]) {
-      return;
+export default function App() {
+  const [city, setCity] = useState("");
+  const [weather, setWeather] = useState(null);
+  const [error, setError] = useState("");
+
+  const API_KEY = "YOUR_API_KEY"; // Replace with your OpenWeather API key
+
+  const getWeather = async () => {
+    try {
+      setError("");
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
+      );
+
+      if (!response.ok) {
+        throw new Error("City not found");
+      }
+
+      const data = await response.json();
+      setWeather(data);
+    } catch (err) {
+      setWeather(null);
+      setError(err.message);
     }
-    const nextSquares = squares.slice();
-    if (xIsNext) {
-      nextSquares[i] = "X";
-    } else {
-      nextSquares[i] = "O";
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (city.trim() !== "") {
+      getWeather();
     }
-    setSquares(nextSquares);
-    setXIsNext(!xIsNext);
-  }
+  };
 
   return (
-    <>
-      <div className="board-row">
-        <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
-        <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
-        <Square value={squares[2]} onSquareClick={() => handleClick(2)} />
-      </div>
-      <div className="board-row">
-        <Square value={squares[3]} onSquareClick={() => handleClick(3)} />
-        <Square value={squares[4]} onSquareClick={() => handleClick(4)} />
-        <Square value={squares[5]} onSquareClick={() => handleClick(5)} />
-      </div>
-      <div className="board-row">
-        <Square value={squares[6]} onSquareClick={() => handleClick(6)} />
-        <Square value={squares[7]} onSquareClick={() => handleClick(7)} />
-        <Square value={squares[8]} onSquareClick={() => handleClick(8)} />
-      </div>
-    </>
+    <div className="flex flex-col items-center justify-center h-screen bg-blue-100">
+      <h1 className="text-3xl font-bold mb-4">🌤️ Weather App</h1>
+
+      <form onSubmit={handleSubmit} className="flex gap-2">
+        <input
+          type="text"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          placeholder="Enter city"
+          className="p-2 rounded-lg border"
+        />
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+        >
+          Search
+        </button>
+      </form>
+
+      {error && <p className="text-red-500 mt-4">{error}</p>}
+
+      {weather && (
+        <div className="mt-6 p-6 bg-white shadow rounded-lg text-center">
+          <h2 className="text-2xl font-semibold">{weather.name}</h2>
+          <p className="text-lg">{weather.weather[0].description}</p>
+          <p className="text-4xl font-bold">{weather.main.temp}°C</p>
+          <p>Humidity: {weather.main.humidity}%</p>
+          <p>Wind Speed: {weather.wind.speed} m/s</p>
+        </div>
+      )}
+    </div>
   );
 }
